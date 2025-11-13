@@ -1,0 +1,114 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #fafafa;
+    font-family: monospace;
+}
+
+.contenedor {
+    text-align: center;
+}
+
+/* Contenedor de filas con flex para 2 filas de 4 ejercicios */
+.fila {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.resta {
+    border: 1px solid #333;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    width: 140px;
+    padding: 10px 15px;
+    margin: 0 10px;
+    font-size: 1.4em;
+    line-height: 1.5em;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Centrado horizontal */
+    justify-content: center; /* Centrado vertical */
+    min-height: 80px;
+}
+
+.resta > div {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    font-weight: bold;
+}
+
+.numero-inferior {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signo-menos {
+    margin-right: 5px;
+    user-select: none;
+}
+
+/* Estilos para la resta agrandada y centrada */
+.centrado-grande {
+  width: 60vw;
+  height: 50vh;
+  font-size: 1.8em;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+/* Estilos para el panel numérico */
+#panelRespuesta {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#inputRespuesta {
+    font-size: 1.5em;
+    width: 200px;
+    text-align: right;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+}
+
+#botonesNumericos {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#botonesNumericos button {
+    font-size: 1.5em;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+}
+
+/* Botón 0 centrado debajo de los números */
+#btnCero {
+    grid-column: 2 / 3;
+}
+
+/* Botones Borrar, Enviar y Volver */
+#panelRespuesta button.actionBtn {
+    margin: 10px;
+    font-size: 1.2em;
+    padding: 8px 16px;
+    cursor: pointer;
+}
