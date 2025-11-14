@@ -1,10 +1,18 @@
+<?php
+// Proteger página de restas
+session_start();
+if (!isset($_SESSION['usuario'])) {
+  header('Location: login.php');
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <script src="js/restas.js"></script>
-    <meta charset="UTF-8">
-    <title>Restas Paginadas</title>
-    <link rel="stylesheet" href="../css/restas.css">
+  <script src="js/restas.js"></script>
+  <meta charset="UTF-8">
+  <title>Aprende y Diviértete - Restas</title>
+  <link rel="stylesheet" href="../css/restas.css">
 </head>
 <body>
 
@@ -39,6 +47,11 @@ echo '</div>';
       <polyline points="12 5 19 12 12 19" />
     </svg>
   </button>
+</div>
+
+<!-- Botón Volver al menú.php -->
+<div style="margin: 20px; text-align: center;">
+  <a href="menu.php" class="btn-volver-menu">Volver al Menú</a>
 </div>
 </div>
 
@@ -77,6 +90,11 @@ echo '</div>';
     </svg>
   </button>
 </div>
+
+<!-- Botón Volver al menú.php -->
+<div style="margin: 20px; text-align: center;">
+  <a href="menu.php" class="btn-volver-menu">Volver al Menú</a>
+</div>
 </div>
 
 <!-- Página 3 -->
@@ -108,7 +126,13 @@ echo '</div>';
     </svg>
   </button>
 </div>
+
+<!-- Botón Volver al menú.php -->
+<div style="margin: 20px; text-align: center;">
+  <a href="menu.php" class="btn-volver-menu">Volver al Menú</a>
 </div>
+</div>
+
 
 </body>
 </html>

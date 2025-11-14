@@ -1,20 +1,64 @@
+
 <?php
-
-// Inicia la sesión para poder guardar el usuario logueado
+// Registro de nuevos usuarios
 session_start();
+require_once __DIR__ . '/db.php';
 
-// Variable para mostrar mensajes de error o éxito
+
+// Si ya está logueado, no necesita registrarse
+if (isset($_SESSION['usuario'])) {
+    header('Location: menu.php');
+    exit();
+}
+
 $mensaje = '';
+$exito = false;
 
-// Si el formulario fue enviado (método POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtiene los valores enviados por el usuario
     $usuario = trim($_POST['usuario'] ?? '');
     $clave = $_POST['clave'] ?? '';
     $clave2 = $_POST['clave2'] ?? '';
-    // Aquí puedes agregar validaciones básicas si lo deseas
-    // Por ahora, no se realiza registro ni guardado
-    $mensaje = 'Funcionalidad de registro pendiente de base de datos.';
+
+    // Validaciones
+    if ($usuario === '' || $clave === '' || $clave2 === '') {
+        $mensaje = 'Todos los campos son obligatorios.';
+    } elseif (strlen($usuario) < 3 || strlen($usuario) > 50) {
+        $mensaje = 'El usuario debe tener entre 3 y 50 caracteres.';
+    } elseif ($clave !== $clave2) {
+        $mensaje = 'Las contraseñas no coinciden.';
+    } elseif (strlen($clave) < 6) {
+        $mensaje = 'La contraseña debe tener al menos 6 caracteres.';
+    } else {
+        try {
+            // Verificar si usuario ya existe
+            $stmt = $pdo->prepare('SELECT 1 FROM login WHERE Usuario = ? LIMIT 1');
+            $stmt->execute([$usuario]);
+            if ($stmt->fetch()) {
+                $mensaje = 'El nombre de usuario ya está registrado.';
+            } else {
+                // Usar transacción: primero crear la persona y luego el login para respetar la FK
+                $pdo->beginTransaction();
+                $pstmt = $pdo->prepare('INSERT INTO personas (Nombre, Apellido, Edad, Seccion) VALUES (?, ?, ?, ?)');
+                // Insertamos datos mínimos; el desarrollador puede ampliar el formulario para pedirlos
+                $pstmt->execute([$usuario, '', 0, '']);
+                $id_persona = $pdo->lastInsertId();
+
+                // Hash de la contraseña
+                $hash = password_hash($clave, PASSWORD_DEFAULT);
+                $insert = $pdo->prepare('INSERT INTO login (Usuario, Clave, ID_Personas) VALUES (?, ?, ?)');
+                $insert->execute([$usuario, $hash, $id_persona]);
+
+                $pdo->commit();
+                $exito = true;
+                $mensaje = 'Registro exitoso. Ahora puedes iniciar sesión.';
+            }
+        } catch (Exception $e) {
+            if (isset($pdo) && $pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            $mensaje = 'Error al registrar el usuario: ' . $e->getMessage();
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -30,13 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2>Crear cuenta</h2>
     <!-- Muestra mensajes de error si existen -->
     <?php if ($mensaje): ?>
-        <div class="error"><?= $mensaje ?></div>
+        <div class="<?= $exito ? 'exito' : 'error' ?>"><?= htmlspecialchars($mensaje) ?></div>
     <?php endif; ?>
     <!-- Formulario de registro -->
-    <form method="post">
-        <input type="text" name="usuario" placeholder="Usuario" required autofocus>
-        <input type="password" name="clave" placeholder="Clave" required>
-        <input type="password" name="clave2" placeholder="Repetir clave" required>
+    <form method="post" autocomplete="off">
+        <input type="text" name="usuario" placeholder="Usuario" required autofocus minlength="3" maxlength="50">
+        <input type="password" name="clave" placeholder="Clave" required minlength="6">
+        <input type="password" name="clave2" placeholder="Repetir clave" required minlength="6">
         <button type="submit">Registrar</button>
     </form>
     <p>¿Ya tienes cuenta? <a href="login.php">Inicia sesión</a></p>
