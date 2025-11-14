@@ -1,9 +1,10 @@
 <?php
 session_start();
-//if (!isset($_SESSION['usuario'])) {
-  //  header('Location: login.php');
-    //exit;
-//}
+// Proteger acceso: solo usuarios autenticados
+if (!isset($_SESSION['usuario'])) {
+        header('Location: login.php');
+        exit;
+}
 $usuario = htmlspecialchars($_SESSION['usuario']);
 ?>
 <!DOCTYPE html>

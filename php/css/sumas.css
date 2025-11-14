@@ -19,7 +19,7 @@ body {
   margin-bottom: 20px;
 }
 
-.resta {
+.suma {
   border: 1px solid #333;
   background-color: #f0f0f0;
   border-radius: 5px;
@@ -37,7 +37,7 @@ body {
   min-height: 80px;
 }
 
-.resta > div {
+.suma > div {
   width: 100%;
   display: flex;
   justify-content: center; /* Centrado horizontal */
@@ -50,12 +50,11 @@ body {
   justify-content: center;
 }
 
-.signo-menos {
+.signo-mas {
   margin-right: 5px;
   user-select: none;
 }
 
-/* Estilos para la resta agrandada y centrada */
 .centrado-grande {
   width: 40vw;
   height: 35vh;
@@ -99,18 +98,17 @@ body {
   cursor: pointer;
 }
 
-/* Botón 0 centrado debajo de los números */
 #btnCero {
   grid-column: 2 / 3;
 }
 
-/* Botones Borrar, Enviar y Volver */
 #panelRespuesta button.actionBtn {
   margin: 10px;
   font-size: 1.2em;
   padding: 8px 16px;
   cursor: pointer;
 }
+
 .btn-volver-menu {
   display: inline-block;
   padding: 8px 18px;
@@ -127,4 +125,3 @@ body {
 .btn-volver-menu:hover {
   background-color: #0056b3;
 }
-
