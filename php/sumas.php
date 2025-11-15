@@ -3,7 +3,9 @@
 
 
 <?php
+
 session_start();
+require_once __DIR__ . '/db.php';
 
 function generarNumero5Digitos() {
   return rand(10000, 99999);
@@ -52,6 +54,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pagina'], $_POST['ind
       $_SESSION['sumas'][$pagina][$indice]['resuelta'] = true;
       $_SESSION['sumas'][$pagina][$indice]['respuesta'] = $respuesta;
       $mensaje = '¡Correcto! La suma fue resuelta.';
+
+      // Guardar en historial si está logueado
+      if (isset($_SESSION['usuario'])) {
+        // Obtener ID_Personas del usuario logueado
+        $stmt = $pdo->prepare('SELECT ID_Personas FROM login WHERE Usuario = ? LIMIT 1');
+        $stmt->execute([$_SESSION['usuario']]);
+        $row = $stmt->fetch();
+        if ($row && isset($row['ID_Personas'])) {
+          $id_persona = $row['ID_Personas'];
+          // Insertar en historial
+          $insert = $pdo->prepare('INSERT INTO historial (P_CantidadR, S_CantidadR, ResultadoR, Estado, ID_Personas) VALUES (?, ?, ?, ?, ?)');
+          $insert->execute([
+            $suma['num1'],
+            $suma['num2'],
+            $respuesta,
+            'Completa', // máximo 9 caracteres
+            $id_persona
+          ]);
+        }
+      }
     } else {
       $mensaje = 'Respuesta incorrecta. Intenta de nuevo.';
     }
@@ -138,8 +160,11 @@ for ($i = 0; $i < $sumasPorPagina; $i++) {
   echo '<input type="hidden" name="respuesta" class="input-pad-respuesta" value="">';
   echo '</form>';
     if ($mensajePagina === 1 && $mensajeIndice === $i && $mensaje) {
-      $color = ($mensaje === '¡Correcto! La suma fue resuelta.') ? 'green' : 'red';
-      echo '<div style="color:'.$color.';font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      if ($mensaje === '¡Correcto! La suma fue resuelta.') {
+        echo '<div style="color:green;font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      } else {
+        echo '<div style="color:red;font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      }
     }
   }
   echo '</div>';
@@ -182,8 +207,11 @@ for ($i = 0; $i < $sumasPorPagina; $i++) {
   echo '<input type="hidden" name="respuesta" class="input-pad-respuesta" value="">';
   echo '</form>';
     if ($mensajePagina === 2 && $mensajeIndice === $i && $mensaje) {
-      $color = ($mensaje === '¡Correcto! La suma fue resuelta.') ? 'green' : 'red';
-      echo '<div style="color:'.$color.';font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      if ($mensaje === '¡Correcto! La suma fue resuelta.') {
+        echo '<div style="color:green;font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      } else {
+        echo '<div style="color:red;font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      }
     }
   }
   echo '</div>';
@@ -233,8 +261,11 @@ for ($i = 0; $i < $sumasPorPagina; $i++) {
   echo '<input type="hidden" name="respuesta" class="input-pad-respuesta" value="">';
   echo '</form>';
     if ($mensajePagina === 3 && $mensajeIndice === $i && $mensaje) {
-      $color = ($mensaje === '¡Correcto! La suma fue resuelta.') ? 'green' : 'red';
-      echo '<div style="color:'.$color.';font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      if ($mensaje === '¡Correcto! La suma fue resuelta.') {
+        echo '<div style="color:green;font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      } else {
+        echo '<div style="color:red;font-weight:bold;margin-top:5px;">'.htmlspecialchars($mensaje).'</div>';
+      }
     }
   }
   echo '</div>';

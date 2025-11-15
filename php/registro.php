@@ -18,9 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = trim($_POST['usuario'] ?? '');
     $clave = $_POST['clave'] ?? '';
     $clave2 = $_POST['clave2'] ?? '';
+    $nombre = trim($_POST['nombre'] ?? '');
+    $apellido = trim($_POST['apellido'] ?? '');
+    $edad = trim($_POST['edad'] ?? '');
+    $seccion = trim($_POST['seccion'] ?? '');
 
     // Validaciones
-    if ($usuario === '' || $clave === '' || $clave2 === '') {
+    if ($usuario === '' || $clave === '' || $clave2 === '' || $nombre === '' || $apellido === '' || $edad === '' || $seccion === '') {
         $mensaje = 'Todos los campos son obligatorios.';
     } elseif (strlen($usuario) < 3 || strlen($usuario) > 50) {
         $mensaje = 'El usuario debe tener entre 3 y 50 caracteres.';
@@ -28,6 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mensaje = 'Las contraseñas no coinciden.';
     } elseif (strlen($clave) < 6) {
         $mensaje = 'La contraseña debe tener al menos 6 caracteres.';
+    } elseif (!ctype_digit($edad) || (int)$edad < 4 || (int)$edad > 120) {
+        $mensaje = 'Ingresa una edad válida.';
+    } elseif (strlen($seccion) > 10) {
+        $mensaje = 'La sección debe tener como máximo 10 caracteres.';
     } else {
         try {
             // Verificar si usuario ya existe
@@ -39,8 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Usar transacción: primero crear la persona y luego el login para respetar la FK
                 $pdo->beginTransaction();
                 $pstmt = $pdo->prepare('INSERT INTO personas (Nombre, Apellido, Edad, Seccion) VALUES (?, ?, ?, ?)');
-                // Insertamos datos mínimos; el desarrollador puede ampliar el formulario para pedirlos
-                $pstmt->execute([$usuario, '', 0, '']);
+                $pstmt->execute([$nombre, $apellido, (int)$edad, $seccion]);
                 $id_persona = $pdo->lastInsertId();
 
                 // Hash de la contraseña
@@ -78,7 +85,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
     <!-- Formulario de registro -->
     <form method="post" autocomplete="off">
-        <input type="text" name="usuario" placeholder="Usuario" required autofocus minlength="3" maxlength="50">
+        <input type="text" name="usuario" placeholder="Usuario" required minlength="3" maxlength="50">
+        <input type="text" name="nombre" placeholder="Nombre" required maxlength="50">
+        <input type="text" name="apellido" placeholder="Apellido" required maxlength="50">
+        <input type="number" name="edad" placeholder="Edad" required min="4" max="120">
+        <input type="text" name="seccion" placeholder="Sección" required maxlength="10">
         <input type="password" name="clave" placeholder="Clave" required minlength="6">
         <input type="password" name="clave2" placeholder="Repetir clave" required minlength="6">
         <button type="submit">Registrar</button>

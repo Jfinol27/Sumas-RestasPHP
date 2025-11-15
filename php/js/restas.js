@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     inputRespuesta.type = "text";
     inputRespuesta.style.fontSize = "1.5em";
     inputRespuesta.style.width = "200px";
-    inputRespuesta.style.textAlign = "right";
+    inputRespuesta.style.textAlign = "left";
     inputRespuesta.setAttribute("readonly", true);
     panelRespuesta.appendChild(inputRespuesta);
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
       btnNum.style.height = "60px";
       btnNum.addEventListener("click", () => {
         if (inputRespuesta.value.length < 10) {
-          inputRespuesta.value += i;
+          inputRespuesta.value = i + inputRespuesta.value;
         }
       });
       botonesNumericos.appendChild(btnNum);
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     btnCero.style.gridColumn = "2 / 3";
     btnCero.addEventListener("click", () => {
       if (inputRespuesta.value.length < 10) {
-        inputRespuesta.value += "0";
+        inputRespuesta.value = "0" + inputRespuesta.value;
       }
     });
     botonesNumericos.appendChild(btnCero);
@@ -101,13 +101,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const btnEnviar = document.createElement("button");
     btnEnviar.textContent = "Enviar";
     btnEnviar.classList.add("actionBtn");
+    let formActivo = null;
     btnEnviar.addEventListener("click", () => {
-      alert("Respuesta enviada: " + inputRespuesta.value);
+      if (!formActivo) return;
+      if (inputRespuesta.value.trim() === "") {
+        alert("Por favor, ingresa una respuesta usando el pad numérico.");
+        return;
+      }
+      const inputHidden = formActivo.querySelector("input.input-pad-respuesta");
+      if (inputHidden) inputHidden.value = inputRespuesta.value;
+      formActivo.submit();
     });
     panelRespuesta.appendChild(btnEnviar);
 
     const btnVolver = document.createElement("button");
-    btnVolver.textContent = "Volver al menú";
+    btnVolver.textContent = "Volver atrás";
     btnVolver.classList.add("actionBtn");
     btnVolver.addEventListener("click", () => {
       ejercicios.forEach((e) => {
@@ -118,13 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
         e.classList.remove("centrado-grande");
       });
       inputRespuesta.value = "";
-
-      // Mostrar flechas de navegación al volver al menú
       const navFlechas = contenedor.querySelector(".nav-flechas");
       if (navFlechas) {
         navFlechas.style.display = "block";
       }
-
       if (panelRespuesta.parentNode) {
         panelRespuesta.parentNode.removeChild(panelRespuesta);
       }
@@ -138,17 +143,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         ejercicio.style.width = "40vw";
         ejercicio.style.height = "35vh";
-        ejercicio.style.fontSize = "1.8em";
+        ejercicio.style.fontSize = "1.2em";
         ejercicio.classList.add("centrado-grande");
-
-        // Ocultar flechas de navegación al entrar al ejercicio
         const navFlechas = contenedor.querySelector(".nav-flechas");
         if (navFlechas) {
           navFlechas.style.display = "none";
         }
-
         if (!contenedor.contains(panelRespuesta)) {
           contenedor.appendChild(panelRespuesta);
+        }
+        const form = ejercicio.querySelector("form.form-respuesta");
+        if (form) {
+          inputRespuesta.value = "";
+          const inputHidden = form.querySelector("input.input-pad-respuesta");
+          if (inputHidden) inputHidden.value = "";
+          formActivo = form;
         }
       });
     });

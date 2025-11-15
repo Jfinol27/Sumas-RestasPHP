@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     inputRespuesta.type = "text";
     inputRespuesta.style.fontSize = "1.5em";
     inputRespuesta.style.width = "200px";
-    inputRespuesta.style.textAlign = "right";
+    inputRespuesta.style.textAlign = "left";
     inputRespuesta.setAttribute("readonly", true);
     panelRespuesta.appendChild(inputRespuesta);
 
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
       btnNum.style.height = "60px";
       btnNum.addEventListener("click", () => {
         if (inputRespuesta.value.length < 10) {
-          inputRespuesta.value += i;
+          inputRespuesta.value = i + inputRespuesta.value;
         }
       });
       botonesNumericos.appendChild(btnNum);
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
     btnCero.style.gridColumn = "2 / 3";
     btnCero.addEventListener("click", () => {
       if (inputRespuesta.value.length < 10) {
-        inputRespuesta.value += "0";
+        inputRespuesta.value = "0" + inputRespuesta.value;
       }
     });
     botonesNumericos.appendChild(btnCero);
