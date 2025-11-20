@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>REGISTRO</title>
-    <link rel="stylesheet" href="../css/registro.css">
+    <link rel="stylesheet" href="css/registro.css">
 </head>
 <body>
 <!-- Contenedor principal del formulario de registro -->
