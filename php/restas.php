@@ -103,6 +103,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 		}
 	}
 }
+// Verificar si todas las restas están resueltas
+$todasResueltas = true;
+for ($p = 1; $p <= $paginas; $p++) {
+	for ($i = 0; $i < $restasPorPagina; $i++) {
+		if (!$_SESSION['restas'][$p][$i]['resuelta']) {
+			$todasResueltas = false;
+			break 2;
+		}
+	}
+}
 ?>
 
 <!DOCTYPE html>
@@ -111,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 		<script src="js/restas.js"></script>
 		<meta charset="UTF-8">
 		<title>Restas Paginadas</title>
-		<link rel="stylesheet" href="../css/restas.css">
+		<link rel="stylesheet" href="css/restas.css">
 </head>
 
 <body>
@@ -119,6 +129,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 <!-- Página 1 -->
 <div class="contenedor" id="pagina1">
+<h2 style="text-align: center; margin-bottom: 20px;">Página 1 de 3</h2>
+<?php if (!$todasResueltas): ?>
+<div style="position: absolute; top: 10px; right: 10px;">
+  <a href="menu.php" class="btn-volver-menu">Volver al menú principal</a>
+</div>
+<?php endif; ?>
 <?php
 echo '<div class="fila">';
 for ($i = 0; $i < $restasPorPagina; $i++) {
@@ -153,22 +169,19 @@ for ($i = 0; $i < $restasPorPagina; $i++) {
 }
 echo '</div>';
 ?>
-<div style="margin: 20px 0 0 0; text-align: center; display: flex; justify-content: center; align-items: center; gap: 32px;">
+<div class="pad-root" style="display:flex; justify-content:center; margin-top:12px;"></div>
+<div class="footer-nav" style="margin: 20px 0 0 0; text-align: center; display: flex; justify-content: center; align-items: center; gap: 32px;">
 	<form method="post" style="margin:0;">
 		<button type="submit" name="reiniciar" style="background:none; border:none; cursor:pointer;" title="Recargar operaciones">
-			<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0074D9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+			<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 				<path d="M21 2v6h-6"/>
 				<path d="M3 12a9 9 0 0 1 15-6.7l3 3"/>
 				<path d="M21 12a9 9 0 1 1-9-9"/>
 			</svg>
 		</button>
 	</form>
-	<!-- No poner botón de back page en la página 1 -->
-	<a href="menu.php" class="btn-volver-menu" style="display:inline-block; background:none; border:none; cursor:pointer;" title="Volver al menú principal">
-		<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 20 20"><path fill="#000000" fill-rule="evenodd" d="M1 11C.08 11-.352 9.863.336 9.253l9-8a1 1 0 0 1 1.328 0l9 8C20.352 9.863 19.92 11 19 11h-1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-7H1Zm6 6v-5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5h3v-7a1 1 0 0 1 .512-.873L10 3.337l-6.512 5.79A1 1 0 0 1 4 10v7h3Zm2 0v-4h2v4H9Z" clip-rule="evenodd"/></svg>
-	</a>
 	<button id="btnIrPagina2_desde1_footer" aria-label="Ir a la página 2" style="background:none;border:none;cursor:pointer;">
-		<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 			<line x1="5" y1="12" x2="19" y2="12" />
 			<polyline points="12 5 19 12 12 19" />
 		</svg>
@@ -178,6 +191,10 @@ echo '</div>';
 
 <!-- Página 2 -->
 <div class="contenedor" id="pagina2" style="display:none;">
+<h2 style="text-align: center; margin-bottom: 20px;">Página 2 de 3</h2>
+<div style="position: absolute; top: 10px; right: 10px;">
+  <a href="menu.php" class="btn-volver-menu">Volver al menú principal</a>
+</div>
 <?php
 echo '<div class="fila">';
 for ($i = 0; $i < $restasPorPagina; $i++) {
@@ -212,10 +229,11 @@ for ($i = 0; $i < $restasPorPagina; $i++) {
 }
 echo '</div>';
 ?>
-<div style="margin: 20px 0 0 0; text-align: center; display: flex; justify-content: center; align-items: center; gap: 32px;">
+<div class="pad-root" style="display:flex; justify-content:center; margin-top:12px;"></div>
+<div class="footer-nav" style="margin: 20px 0 0 0; text-align: center; display: flex; justify-content: center; align-items: center; gap: 32px;">
 	<form method="post" style="margin:0;">
 		<button type="submit" name="reiniciar" style="background:none; border:none; cursor:pointer;" title="Recargar operaciones">
-			<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0074D9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+			<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 				<path d="M21 2v6h-6"/>
 				<path d="M3 12a9 9 0 0 1 15-6.7l3 3"/>
 				<path d="M21 12a9 9 0 1 1-9-9"/>
@@ -223,16 +241,13 @@ echo '</div>';
 		</button>
 	</form>
 	<button id="btnIrPagina1_desde2_footer" aria-label="Ir a página 1" style="background:none;border:none;cursor:pointer;">
-		<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 			<line x1="19" y1="12" x2="5" y2="12" />
 			<polyline points="12 19 5 12 12 5" />
 		</svg>
 	</button>
-	<a href="menu.php" class="btn-volver-menu" style="display:inline-block; background:none; border:none; cursor:pointer;" title="Volver al menú principal">
-		<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 20 20"><path fill="#000000" fill-rule="evenodd" d="M1 11C.08 11-.352 9.863.336 9.253l9-8a1 1 0 0 1 1.328 0l9 8C20.352 9.863 19.92 11 19 11h-1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-7H1Zm6 6v-5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5h3v-7a1 1 0 0 1 .512-.873L10 3.337l-6.512 5.79A1 1 0 0 1 4 10v7h3Zm2 0v-4h2v4H9Z" clip-rule="evenodd"/></svg>
-	</a>
 	<button id="btnIrPagina3_desde2_footer" aria-label="Ir a página 3" style="background:none;border:none;cursor:pointer;">
-		<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 			<line x1="5" y1="12" x2="19" y2="12" />
 			<polyline points="12 5 19 12 12 19" />
 		</svg>
@@ -242,6 +257,9 @@ echo '</div>';
 
 <!-- Página 3 -->
 <div class="contenedor" id="pagina3" style="display:none;">
+<div style="position: absolute; top: 10px; right: 10px;">
+  <a href="menu.php" class="btn-volver-menu">Volver al menú principal</a>
+</div>
 <?php
 echo '<div class="fila">';
 for ($i = 0; $i < $restasPorPagina; $i++) {
@@ -279,7 +297,7 @@ echo '</div>';
 <div style="margin: 20px 0 0 0; text-align: center; display: flex; justify-content: center; align-items: center; gap: 32px;">
 	<form method="post" style="margin:0;">
 		<button type="submit" name="reiniciar" style="background:none; border:none; cursor:pointer;" title="Recargar operaciones">
-			<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0074D9" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+			<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
 				<path d="M21 2v6h-6"/>
 				<path d="M3 12a9 9 0 0 1 15-6.7l3 3"/>
 				<path d="M21 12a9 9 0 1 1-9-9"/>
@@ -287,14 +305,11 @@ echo '</div>';
 		</button>
 	</form>
 	<button id="btnIrPagina2_desde3_footer" aria-label="Ir a página 2" style="background:none;border:none;cursor:pointer;">
-		<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+		<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 			<line x1="19" y1="12" x2="5" y2="12" />
 			<polyline points="12 19 5 12 12 5" />
 		</svg>
 	</button>
-	<a href="menu.php" class="btn-volver-menu" style="display:inline-block; background:none; border:none; cursor:pointer;" title="Volver al menú principal">
-		<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 20 20"><path fill="#000000" fill-rule="evenodd" d="M1 11C.08 11-.352 9.863.336 9.253l9-8a1 1 0 0 1 1.328 0l9 8C20.352 9.863 19.92 11 19 11h-1v7a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-7H1Zm6 6v-5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5h3v-7a1 1 0 0 1 .512-.873L10 3.337l-6.512 5.79A1 1 0 0 1 4 10v7h3Zm2 0v-4h2v4H9Z" clip-rule="evenodd"/></svg>
-	</a>
 </div>
 </div>
 

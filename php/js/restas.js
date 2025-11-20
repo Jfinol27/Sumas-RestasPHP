@@ -101,20 +101,16 @@ document.addEventListener("DOMContentLoaded", function () {
     panelRespuesta.appendChild(botonesNumericos);
 
     const btnBorrar = document.createElement("button");
-    btnBorrar.innerHTML =
-      '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 26 26"><path fill="#000000" d="M11.5-.031c-1.958 0-3.531 1.627-3.531 3.594V4H4c-.551 0-1 .449-1 1v1H2v2h2v15c0 1.645 1.355 3 3 3h12c1.645 0 3-1.355 3-3V8h2V6h-1V5c0-.551-.449-1-1-1h-3.969v-.438c0-1.966-1.573-3.593-3.531-3.593h-3zm0 2.062h3c.804 0 1.469.656 1.469 1.531V4H10.03v-.438c0-.875.665-1.53 1.469-1.53zM6 8h5.125c.124.013.247.031.375.031h3c.128 0 .25-.018.375-.031H20v15c0 .563-.437 1-1 1H7c-.563 0-1-.437-1-1V8zm2 2v12h2V10H8zm4 0v12h2V10h-2zm4 0v12h2V10h-2z"/></svg>';
     btnBorrar.classList.add("actionBtn");
-    btnBorrar.title = "Borrar";
+    btnBorrar.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M8 6v12m8-12v12M5 6v12a2 2 0 002 2h10a2 2 0 002-2V6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     btnBorrar.addEventListener("click", () => {
       inputRespuesta.value = "";
     });
     panelRespuesta.appendChild(btnBorrar);
 
     const btnEnviar = document.createElement("button");
-    btnEnviar.innerHTML =
-      '<svg width="36" height="36" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="none"><path fill="#78eb7b" d="M1.987 13.704a1.084 1.084 0 0 0 0 1.534l5.203 5.204c.424.423 1.11.423 1.534 0l13.289-13.29a1.084 1.084 0 0 0 0-1.533l-2.06-2.06a1.084 1.084 0 0 0-1.533 0L7.957 14.022L5.58 11.644a1.085 1.085 0 0 0-1.534 0z"/><path fill="#c9f7ca" d="M7.957 17.167L20.76 4.365l-.809-.809a1.085 1.085 0 0 0-1.534 0L7.957 14.022L5.58 11.644a1.084 1.084 0 0 0-1.534 0l-.809.809z"/><path stroke="#191919" stroke-linecap="round" stroke-linejoin="round" d="M1.987 13.704a1.084 1.084 0 0 0 0 1.534l5.203 5.204c.424.423 1.11.423 1.534 0l13.289-13.29a1.084 1.084 0 0 0 0-1.533l-2.06-2.06a1.084 1.084 0 0 0-1.533 0L7.957 14.022L5.58 11.644a1.085 1.085 0 0 0-1.534 0z"/></g></svg>';
     btnEnviar.classList.add("actionBtn");
-    btnEnviar.title = "Enviar";
+    btnEnviar.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
     let formActivo = null;
     btnEnviar.addEventListener("click", () => {
       if (!formActivo) return;
@@ -163,25 +159,31 @@ document.addEventListener("DOMContentLoaded", function () {
     panelRespuesta.appendChild(btnEnviar);
 
     const btnVolver = document.createElement("button");
-    btnVolver.innerHTML =
-      '<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24"><path fill="#000000" d="M4.4 7.4L6.8 4h2.5L7.2 7h6.3a6.5 6.5 0 0 1 0 13H9l1-2h3.5a4.5 4.5 0 1 0 0-9H7.2l2.1 3H6.8L4.4 8.6L4 8z"/></svg>';
     btnVolver.classList.add("actionBtn");
-    btnVolver.title = "Volver atrás";
+    btnVolver.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M4 10L3.64645 10.3536L3.29289 10L3.64645 9.64645L4 10ZM20.5 18C20.5 18.2761 20.2761 18.5 20 18.5C19.7239 18.5 19.5 18.2761 19.5 18L20.5 18ZM8.64645 15.3536L3.64645 10.3536L4.35355 9.64645L9.35355 14.6464L8.64645 15.3536ZM3.64645 9.64645L8.64645 4.64645L9.35355 5.35355L4.35355 10.3536L3.64645 9.64645ZM4 9.5L14 9.5L14 10.5L4 10.5L4 9.5ZM20.5 16L20.5 18L19.5 18L19.5 16L20.5 16ZM14 9.5C17.5898 9.5 20.5 12.4101 20.5 16L19.5 16C19.5 12.9624 17.0376 10.5 14 10.5L14 9.5Z"/></svg>`;
     btnVolver.addEventListener("click", () => {
-      ejercicios.forEach((e) => {
+      // Restaurar todas las tarjetas, incluidas las resueltas
+      ejerciciosAll.forEach((e) => {
         e.style.display = "block";
         e.style.width = "";
         e.style.height = "";
         e.style.fontSize = "";
         e.classList.remove("centrado-grande");
+        e.classList.remove("signo-derecha");
       });
       inputRespuesta.value = "";
-      // Mostrar footer de navegación al volver
+      if (panelRespuesta.parentNode) {
+        panelRespuesta.parentNode.removeChild(panelRespuesta);
+      }
+      // Mostrar la navegación del footer al volver
+      const footerNav = document.querySelector(".footer-nav");
       if (footerNav) {
         footerNav.style.display = "flex";
       }
-      if (panelRespuesta.parentNode) {
-        panelRespuesta.parentNode.removeChild(panelRespuesta);
+      // Mostrar el título de la página al volver
+      const pageTitle = contenedor.querySelector('h2');
+      if (pageTitle) {
+        pageTitle.style.display = "block";
       }
     });
     panelRespuesta.appendChild(btnVolver);
