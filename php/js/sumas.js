@@ -9,34 +9,39 @@ document.addEventListener("DOMContentLoaded", function () {
     pagina3.style.display = "none";
   }
 
-  // Navegación con ids únicos para flechas
-  document
-    .getElementById("btnIrPagina2_desde1")
-    ?.addEventListener("click", () => {
+  // Botón back page en el footer de la página 3
+  const btnBack3 = document.getElementById("btnIrPagina2_desde3_footer");
+  if (btnBack3) {
+    btnBack3.addEventListener("click", function () {
       ocultarPaginas();
       pagina2.style.display = "block";
     });
-
-  document
-    .getElementById("btnIrPagina1_desde2")
-    ?.addEventListener("click", () => {
+  }
+  // Botón back page en el footer de la página 2
+  const btnBack2 = document.getElementById("btnIrPagina1_desde2_footer");
+  if (btnBack2) {
+    btnBack2.addEventListener("click", function () {
       ocultarPaginas();
       pagina1.style.display = "block";
     });
+  }
 
-  document
-    .getElementById("btnIrPagina3_desde2")
-    ?.addEventListener("click", () => {
-      ocultarPaginas();
-      pagina3.style.display = "block";
-    });
-
-  document
-    .getElementById("btnIrPagina2_desde3")
-    ?.addEventListener("click", () => {
+  // Navegación con botones de footer
+  const btnNext1 = document.getElementById("btnIrPagina2_desde1_footer");
+  if (btnNext1) {
+    btnNext1.addEventListener("click", function () {
       ocultarPaginas();
       pagina2.style.display = "block";
     });
+  }
+
+  const btnNext2 = document.getElementById("btnIrPagina3_desde2_footer");
+  if (btnNext2) {
+    btnNext2.addEventListener("click", function () {
+      ocultarPaginas();
+      pagina3.style.display = "block";
+    });
+  }
 
   function prepararPagina(pagina) {
   const ejerciciosAll = pagina.querySelectorAll(".suma");
@@ -107,13 +112,42 @@ document.addEventListener("DOMContentLoaded", function () {
     btnEnviar.addEventListener("click", () => {
       if (!formActivo) return;
       if (inputRespuesta.value.trim() === "") {
-        alert("Por favor, ingresa una respuesta usando el pad numérico.");
+        mostrarMensajePad(
+          "Por favor, ingresa una respuesta usando el pad numérico.",
+          false
+        );
+        return;
+      }
+      // Validar respuesta antes de enviar
+      const num1 = parseInt(
+        formActivo.parentElement.querySelector("div").textContent
+      );
+      const num2 = parseInt(
+        formActivo.parentElement.querySelector(".numero-inferior").textContent
+      );
+      const respuesta = parseInt(inputRespuesta.value);
+      if (respuesta !== num1 + num2) {
+        mostrarMensajePad("Respuesta incorrecta. Intenta de nuevo.", false);
         return;
       }
       const inputHidden = formActivo.querySelector("input.input-pad-respuesta");
       if (inputHidden) inputHidden.value = inputRespuesta.value;
       formActivo.submit();
     });
+
+    // Función para mostrar mensaje en el pad numérico
+    function mostrarMensajePad(mensaje, correcto) {
+      let msg = panelRespuesta.querySelector(".mensaje-pad");
+      if (!msg) {
+        msg = document.createElement("div");
+        msg.className = "mensaje-pad";
+        msg.style.marginTop = "10px";
+        msg.style.fontWeight = "bold";
+        panelRespuesta.appendChild(msg);
+      }
+      msg.textContent = mensaje;
+      msg.style.color = correcto ? "green" : "red";
+    }
     panelRespuesta.appendChild(btnEnviar);
 
     const btnVolver = document.createElement("button");
@@ -130,13 +164,10 @@ document.addEventListener("DOMContentLoaded", function () {
         e.classList.remove("signo-derecha");
       });
       inputRespuesta.value = "";
-
-      // Mostrar flechas de navegación al volver al menú
-      const navFlechas = contenedor.querySelector(".nav-flechas");
-      if (navFlechas) {
-        navFlechas.style.display = "block";
+      // Mostrar footer de navegación al volver
+      if (footerNav) {
+        footerNav.style.display = "flex";
       }
-
       if (panelRespuesta.parentNode) {
         panelRespuesta.parentNode.removeChild(panelRespuesta);
       }
@@ -144,6 +175,12 @@ document.addEventListener("DOMContentLoaded", function () {
     panelRespuesta.appendChild(btnVolver);
 
     ejercicios.forEach((ejercicio) => {
+      // Si la operación ya está resuelta, no permitir click
+      if (ejercicio.querySelector(".resuelta")) {
+        ejercicio.style.pointerEvents = "none";
+        ejercicio.style.opacity = "0.6";
+        return;
+      }
       ejercicio.addEventListener("click", function () {
         // ocultar todas las tarjetas excepto la seleccionada (incluye resueltas)
         ejerciciosAll.forEach((e) => {
@@ -153,21 +190,16 @@ document.addEventListener("DOMContentLoaded", function () {
         ejercicio.style.height = "35vh";
         ejercicio.style.fontSize = "1.2em";
         ejercicio.classList.add("centrado-grande");
-
-        // Ocultar flechas de navegación al entrar al ejercicio
-        const navFlechas = contenedor.querySelector(".nav-flechas");
-        if (navFlechas) {
-          navFlechas.style.display = "none";
+        // Ocultar footer de navegación al entrar al ejercicio
+        if (footerNav) {
+          footerNav.style.display = "none";
         }
-
         if (!contenedor.contains(panelRespuesta)) {
           contenedor.appendChild(panelRespuesta);
         }
-
         // Vincular el formulario de la suma seleccionada con el pad numérico
         const form = ejercicio.querySelector("form.form-respuesta");
         if (form) {
-          // Limpiar el inputRespuesta y el input oculto al abrir
           inputRespuesta.value = "";
           const inputHidden = form.querySelector("input.input-pad-respuesta");
           if (inputHidden) inputHidden.value = "";
