@@ -24,9 +24,9 @@ body {
 }
 
 .contenedor {
-  width: 100%;
+  width: 80%;
   max-width: 1000px;
-  margin: 40px auto;
+  margin: 20px;
   padding: 24px;
   box-sizing: border-box;
 }
@@ -36,7 +36,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 14px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   flex-wrap: wrap;
 }
 
@@ -76,6 +76,39 @@ body {
   color: var(--color-gray-900);
 }
 
+.suma > div:first-child {
+  position: relative;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  -webkit-font-feature-settings: "tnum" 1;
+}
+
+.suma > div:nth-child(3) {
+  position: relative;
+  text-align: right;
+}
+
+.numero-inferior {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  -webkit-font-feature-settings: "tnum" 1;
+}
+
+.signo-mas {
+  position: absolute;
+  right: 8px;
+  top: 0;
+  margin: 0;
+  font-size: 1.5rem;
+  user-select: none;
+  color: var(--color-primary-dark);
+}
+
 /* Línea que separa numerador y denominador */
 .linea-suma {
   display: none; /* Ocultada según petición del usuario */
@@ -83,44 +116,34 @@ body {
 
 /* Alineación perfecta al abrir la tarjeta: números uno debajo del otro */
 .suma.centrado-grande > div {
-  justify-content: flex-end;
+  justify-content: center;
 }
 
-.suma.centrado-grande > div:first-child,
+.suma.centrado-grande > div:first-child {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
 .suma.centrado-grande .numero-inferior {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-  -webkit-font-feature-settings: "tnum" 1;
   font-size: 2.2rem;
   line-height: 1;
 }
 
 .suma.centrado-grande .signo-mas {
-  margin-right: 8px;
-  margin-left: 0;
-}
-
-.numero-inferior {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.signo-mas {
-  margin-right: 6px;
-  user-select: none;
-  color: var(--color-primary-dark);
+  position: absolute;
+  right: 55px;
+  top: 0;
+  margin: 0;
+  font-size: 3rem;
 }
 
 .centrado-grande {
-  width: 60vw;
-  max-width: 720px;
-  height: auto;
+  width: 40vw;
+  max-width: 300px;
+  height: 80px;
   font-size: 1.15rem;
-  padding: 18px;
+  padding: 8px;
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -134,6 +157,7 @@ body {
 #panelRespuesta {
   margin-top: 20px;
   text-align: center;
+  
 }
 
 #inputRespuesta {

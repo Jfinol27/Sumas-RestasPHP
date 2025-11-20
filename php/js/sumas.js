@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // solo las sumas no resueltas serán "clicables"
   const ejercicios = pagina.querySelectorAll(".suma:not(.resuelta-suma)");
   const contenedor = pagina;
+  const padRoot = contenedor.querySelector('.pad-root');
 
     const panelRespuesta = document.createElement("div");
     panelRespuesta.id = "panelRespuesta";
@@ -164,12 +165,18 @@ document.addEventListener("DOMContentLoaded", function () {
         e.classList.remove("signo-derecha");
       });
       inputRespuesta.value = "";
-      // Mostrar footer de navegación al volver
+      if (panelRespuesta.parentNode) {
+        panelRespuesta.parentNode.removeChild(panelRespuesta);
+      }
+      // Mostrar la navegación del footer al volver
+      const footerNav = document.querySelector(".footer-nav");
       if (footerNav) {
         footerNav.style.display = "flex";
       }
-      if (panelRespuesta.parentNode) {
-        panelRespuesta.parentNode.removeChild(panelRespuesta);
+      // Mostrar el título de la página al volver
+      const pageTitle = contenedor.querySelector('h2');
+      if (pageTitle) {
+        pageTitle.style.display = "block";
       }
     });
     panelRespuesta.appendChild(btnVolver);
@@ -190,12 +197,18 @@ document.addEventListener("DOMContentLoaded", function () {
         ejercicio.style.height = "35vh";
         ejercicio.style.fontSize = "1.2em";
         ejercicio.classList.add("centrado-grande");
-        // Ocultar footer de navegación al entrar al ejercicio
+        if (!(padRoot || contenedor).contains(panelRespuesta)) {
+          (padRoot || contenedor).appendChild(panelRespuesta);
+        }
+        // Ocultar la navegación del footer al seleccionar una suma
+        const footerNav = document.querySelector(".footer-nav");
         if (footerNav) {
           footerNav.style.display = "none";
         }
-        if (!contenedor.contains(panelRespuesta)) {
-          contenedor.appendChild(panelRespuesta);
+        // Ocultar el título de la página al seleccionar una suma
+        const pageTitle = contenedor.querySelector('h2');
+        if (pageTitle) {
+          pageTitle.style.display = "none";
         }
         // Vincular el formulario de la suma seleccionada con el pad numérico
         const form = ejercicio.querySelector("form.form-respuesta");
@@ -213,3 +226,4 @@ document.addEventListener("DOMContentLoaded", function () {
   prepararPagina(pagina2);
   prepararPagina(pagina3);
 });
+  
