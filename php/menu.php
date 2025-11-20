@@ -19,7 +19,7 @@ $nombreCompleto = $persona ? htmlspecialchars($persona['Nombre'] . ' ' . $person
 <head>
     <meta charset="UTF-8">
     <title>Menú Principal</title>
-	<link rel="stylesheet" href="../css/menu.css">
+	<link rel="stylesheet" href="css/menu.css">
 </head>
 <body>
     <header>

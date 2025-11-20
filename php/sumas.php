@@ -16,7 +16,7 @@ $sumasPorPagina = 8;
 
 
 
-// Si se solicita reiniciar, randomizar todos los ejercicios y limpiar estado
+ 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reiniciar'])) {
   for ($p = 1; $p <= $paginas; $p++) {
     for ($i = 0; $i < $sumasPorPagina; $i++) {
@@ -28,31 +28,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reiniciar'])) {
       ];
     }
   }
-  // Limpiar historial del usuario si está logueado
+  
   if (isset($_SESSION['usuario'])) {
     $stmt = $pdo->prepare('SELECT ID_Personas FROM login WHERE Usuario = ? LIMIT 1');
     $stmt->execute([$_SESSION['usuario']]);
     $row = $stmt->fetch();
     if ($row && isset($row['ID_Personas'])) {
       $id_persona = $row['ID_Personas'];
-      // Borra solo historial de sumas (S_CantidadR IS NULL y P_CantidadR IS NOT NULL)
+      
       $delete = $pdo->prepare('DELETE FROM historial WHERE ID_Personas = ? AND S_CantidadR IS NULL AND P_CantidadR IS NOT NULL');
       $delete->execute([$id_persona]);
     }
   }
-  // Redirigir para evitar reenvío de formulario
+  
   header('Location: sumas.php');
   exit();
 }
 
 
 
-// Variables de mensaje para retroalimentación
+ 
 $mensaje = '';
 $mensajePagina = null;
 $mensajeIndice = null;
 
-// Procesar respuesta del formulario
+ 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pagina'], $_POST['indice'], $_POST['respuesta'])) {
   $pagina = (int)$_POST['pagina'];
   $indice = (int)$_POST['indice'];
@@ -67,34 +67,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pagina'], $_POST['ind
       $_SESSION['sumas'][$pagina][$indice]['respuesta'] = $respuesta;
       $mensaje = '¡Correcto! La suma fue resuelta.';
 
-      // Guardar en historial si está logueado
+      
       if (isset($_SESSION['usuario'])) {
-        // Obtener ID_Personas del usuario logueado
+        
         $stmt = $pdo->prepare('SELECT ID_Personas FROM login WHERE Usuario = ? LIMIT 1');
         $stmt->execute([$_SESSION['usuario']]);
         $row = $stmt->fetch();
         if ($row && isset($row['ID_Personas'])) {
           $id_persona = $row['ID_Personas'];
-          // Insertar en historial
+          
           $insert = $pdo->prepare('INSERT INTO historial (P_CantidadR, S_CantidadR, ResultadoR, Estado, ID_Personas) VALUES (?, ?, ?, ?, ?)');
           $insert->execute([
             $suma['num1'],
             $suma['num2'],
             $respuesta,
-            'Completa', // máximo 9 caracteres
+            'Completa',
             $id_persona
           ]);
         }
       }
     } else {
       $mensaje = 'Respuesta incorrecta. Intenta de nuevo.';
-      // Mantener al usuario en la misma pestaña mostrando el mensaje
-      // No hacer redirección ni cambio de página
+      
     }
   }
 }
 
-// Inicializar sumas en sesión si no existen
+ 
 if (!isset($_SESSION['sumas'])) {
   $_SESSION['sumas'] = [];
   for ($p = 1; $p <= $paginas; $p++) {
@@ -110,7 +109,7 @@ if (!isset($_SESSION['sumas'])) {
   }
 }
 
-// Randomizar solo las sumas no resueltas al volver al menú (cuando no es POST)
+ 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   for ($p = 1; $p <= $paginas; $p++) {
     for ($i = 0; $i < $sumasPorPagina; $i++) {
@@ -121,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     }
   }
 }
-// Si se solicita reiniciar, randomizar todos los ejercicios y limpiar estado
+ 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reiniciar'])) {
   for ($p = 1; $p <= $paginas; $p++) {
     for ($i = 0; $i < $sumasPorPagina; $i++) {
@@ -133,12 +132,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reiniciar'])) {
       ];
     }
   }
-  // Redirigir para evitar reenvío de formulario
+  
   header('Location: sumas.php');
   exit();
 }
 
-// Verificar si todas las sumas están resueltas
+ 
 $todasResueltas = true;
 for ($p = 1; $p <= $paginas; $p++) {
   for ($i = 0; $i < $sumasPorPagina; $i++) {
@@ -157,7 +156,7 @@ for ($p = 1; $p <= $paginas; $p++) {
     <script src="js/sumas.js"></script>
     <meta charset="UTF-8">
     <title>Sumas Paginadas</title>
-    <link rel="stylesheet" href="../css/sumas.css">
+    <link rel="stylesheet" href="css/sumas.css">
 </head>
 
 <body>
