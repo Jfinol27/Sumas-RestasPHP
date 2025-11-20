@@ -131,21 +131,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 </head>
 <body>
-<h1 class="titulo">Aprende y Diviertete</h1>
-<div class="login">
+	<div class="login-container">
+		<div class="login-wrapper">
+			<div class="login-header">
+				<h1 class="titulo">Aprende y Diviértete</h1>
+			</div>
 
-	<?php if ($mensaje): ?>
-		<div class="error"><?= $mensaje ?></div>
-	<?php endif; ?>
-	<form method="post" autocomplete="off">
-        <h2>Iniciar sesión</h2>
-		<input type="text" name="usuario" placeholder="Usuario" required maxlength="50" autofocus>
-		<input type="password" name="clave" placeholder="Clave" required minlength="6">
-		<button type="submit">Iniciar sesión</button>
-	</form>
-	<div class="register-link">
-		¿Aun no tienes cuenta? <a href="registro.php">Crear cuenta nueva</a>
+			<div class="login">
+
+				<?php if ($mensaje): ?>
+					<div class="error"><?= $mensaje ?></div>
+				<?php endif; ?>
+				<form method="post" autocomplete="off">
+					<h2>Iniciar sesión</h2>
+					<input type="text" name="usuario" placeholder="Usuario" required maxlength="50" autofocus>
+					<input type="password" name="clave" placeholder="Clave" required minlength="6">
+					<button type="submit">Iniciar sesión</button>
+				</form>
+				<div class="register-link">
+					¿Aun no tienes cuenta? <a href="registro.php">Crear cuenta nueva</a>
+				</div>
+			</div>
+		</div>
 	</div>
-</div>
 </body>
 </html>

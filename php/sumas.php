@@ -146,7 +146,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reiniciar'])) {
 echo '<div class="fila">';
 for ($i = 0; $i < $sumasPorPagina; $i++) {
   $suma = $_SESSION['sumas'][1][$i];
-  echo '<div class="suma">';
+  $claseSuma = 'suma' . ($suma['resuelta'] ? ' resuelta-suma' : '');
+  echo '<div class="'.$claseSuma.'">';
   echo '<div>'.$suma['num1'].'</div>';
   echo '<div class="linea-suma"></div>';
   echo '<div><span class="signo-mas">+</span><span class="numero-inferior">'.$suma['num2'].'</span></div>';
@@ -184,7 +185,9 @@ echo '</div>';
 </div>
 
 <div style="margin: 20px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 16px;">
-  <a href="menu.php" class="btn-volver-menu" style="display:inline-block;">Volver al menú principal</a>
+  <a href="menu.php" class="btn-volver-menu" style="display:inline-flex; padding:8px; width:64px; height:64px; border-radius:12px; background:var(--color-primary-dark); justify-content:center; align-items:center; text-decoration:none;" title="Volver al menú">
+    <svg viewBox="0 0 24 24" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 9.77746V16.2C5 17.8802 5 18.7203 5.32698 19.362C5.6146 19.9265 6.07354 20.3854 6.63803 20.673C7.27976 21 8.11984 21 9.8 21H14.2C15.8802 21 16.7202 21 17.362 20.673C17.9265 20.3854 18.3854 19.9265 18.673 19.362C19 18.7203 19 17.8802 19 16.2V5.00002M21 12L15.5668 5.96399C14.3311 4.59122 13.7133 3.90484 12.9856 3.65144C12.3466 3.42888 11.651 3.42893 11.0119 3.65159C10.2843 3.90509 9.66661 4.59157 8.43114 5.96452L3 12" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </a>
 </div>
 </div>
 
@@ -194,7 +197,8 @@ echo '</div>';
 echo '<div class="fila">';
 for ($i = 0; $i < $sumasPorPagina; $i++) {
   $suma = $_SESSION['sumas'][2][$i];
-  echo '<div class="suma">';
+  $claseSuma = 'suma' . ($suma['resuelta'] ? ' resuelta-suma' : '');
+  echo '<div class="'.$claseSuma.'">';
   echo '<div>'.$suma['num1'].'</div>';
   echo '<div class="linea-suma"></div>';
   echo '<div><span class="signo-mas">+</span><span class="numero-inferior">'.$suma['num2'].'</span></div>';
@@ -237,7 +241,9 @@ echo '</div>';
 </div>
 
 <div style="margin: 20px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 16px;">
-  <a href="menu.php" class="btn-volver-menu" style="display:inline-block;">Volver al menú principal</a>
+  <a href="menu.php" class="btn-volver-menu" style="display:inline-flex; padding:8px; width:64px; height:64px; border-radius:12px; background:var(--color-primary-dark); justify-content:center; align-items:center; text-decoration:none;" title="Volver al menú">
+    <svg viewBox="0 0 24 24" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 9.77746V16.2C5 17.8802 5 18.7203 5.32698 19.362C5.6146 19.9265 6.07354 20.3854 6.63803 20.673C7.27976 21 8.11984 21 9.8 21H14.2C15.8802 21 16.7202 21 17.362 20.673C17.9265 20.3854 18.3854 19.9265 18.673 19.362C19 18.7203 19 17.8802 19 16.2V5.00002M21 12L15.5668 5.96399C14.3311 4.59122 13.7133 3.90484 12.9856 3.65144C12.3466 3.42888 11.651 3.42893 11.0119 3.65159C10.2843 3.90509 9.66661 4.59157 8.43114 5.96452L3 12" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </a>
 
 </div>
 </div>
@@ -248,7 +254,8 @@ echo '</div>';
 echo '<div class="fila">';
 for ($i = 0; $i < $sumasPorPagina; $i++) {
   $suma = $_SESSION['sumas'][3][$i];
-  echo '<div class="suma">';
+  $claseSuma = 'suma' . ($suma['resuelta'] ? ' resuelta-suma' : '');
+  echo '<div class="'.$claseSuma.'">';
   echo '<div>'.$suma['num1'].'</div>';
   echo '<div class="linea-suma"></div>';
   echo '<div><span class="signo-mas">+</span><span class="numero-inferior">'.$suma['num2'].'</span></div>';
@@ -285,7 +292,9 @@ echo '</div>';
 </div>
 
 <div style="margin: 20px; text-align: center;">
-  <a href="menu.php" class="btn-volver-menu">Volver al menú principal</a>
+  <a href="menu.php" class="btn-volver-menu" style="display:inline-flex; padding:8px; width:64px; height:64px; border-radius:12px; background:var(--color-primary-dark); justify-content:center; align-items:center; text-decoration:none;" title="Volver al menú">
+    <svg viewBox="0 0 24 24" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 9.77746V16.2C5 17.8802 5 18.7203 5.32698 19.362C5.6146 19.9265 6.07354 20.3854 6.63803 20.673C7.27976 21 8.11984 21 9.8 21H14.2C15.8802 21 16.7202 21 17.362 20.673C17.9265 20.3854 18.3854 19.9265 18.673 19.362C19 18.7203 19 17.8802 19 16.2V5.00002M21 12L15.5668 5.96399C14.3311 4.59122 13.7133 3.90484 12.9856 3.65144C12.3466 3.42888 11.651 3.42893 11.0119 3.65159C10.2843 3.90509 9.66661 4.59157 8.43114 5.96452L3 12" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </a>
 </div>
 </div>
 

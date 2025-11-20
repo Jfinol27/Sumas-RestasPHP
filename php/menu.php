@@ -24,9 +24,12 @@ $nombreCompleto = $persona ? htmlspecialchars($persona['Nombre'] . ' ' . $person
 <body>
     <header>
         <div class="header-content">
-            <div class="bienvenido-header">Bienvenido, <b><?= $nombreCompleto ?></b></div>
+            <div class="bienvenido-header">
+                <div class="welcome-title">¡Hola, <b><?= $nombreCompleto ?></b>!</div>
+                <div class="welcome-subtitle">Listo para practicar y divertirte con ejercicios de matemáticas?</div>
+            </div>
             <form method="post" action="logout.php" style="display:inline;">
-                <button class="logout-btn" type="submit">Cerrar sesión</button>
+                <button class="logout-btn floating" type="submit">Cerrar sesión</button>
             </form>
         </div>
     </header>

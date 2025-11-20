@@ -39,8 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
   function prepararPagina(pagina) {
-    const ejercicios = pagina.querySelectorAll(".suma");
-    const contenedor = pagina;
+  const ejerciciosAll = pagina.querySelectorAll(".suma");
+  // solo las sumas no resueltas serán "clicables"
+  const ejercicios = pagina.querySelectorAll(".suma:not(.resuelta-suma)");
+  const contenedor = pagina;
 
     const panelRespuesta = document.createElement("div");
     panelRespuesta.id = "panelRespuesta";
@@ -91,16 +93,16 @@ document.addEventListener("DOMContentLoaded", function () {
     panelRespuesta.appendChild(botonesNumericos);
 
     const btnBorrar = document.createElement("button");
-    btnBorrar.textContent = "Borrar";
     btnBorrar.classList.add("actionBtn");
+    btnBorrar.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M8 6v12m8-12v12M5 6v12a2 2 0 002 2h10a2 2 0 002-2V6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
     btnBorrar.addEventListener("click", () => {
       inputRespuesta.value = "";
     });
     panelRespuesta.appendChild(btnBorrar);
 
     const btnEnviar = document.createElement("button");
-    btnEnviar.textContent = "Enviar";
     btnEnviar.classList.add("actionBtn");
+    btnEnviar.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>`;
     let formActivo = null;
     btnEnviar.addEventListener("click", () => {
       if (!formActivo) return;
@@ -115,15 +117,17 @@ document.addEventListener("DOMContentLoaded", function () {
     panelRespuesta.appendChild(btnEnviar);
 
     const btnVolver = document.createElement("button");
-    btnVolver.textContent = "Volver atrás";
     btnVolver.classList.add("actionBtn");
+    btnVolver.innerHTML = `<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#fff" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M4 10L3.64645 10.3536L3.29289 10L3.64645 9.64645L4 10ZM20.5 18C20.5 18.2761 20.2761 18.5 20 18.5C19.7239 18.5 19.5 18.2761 19.5 18L20.5 18ZM8.64645 15.3536L3.64645 10.3536L4.35355 9.64645L9.35355 14.6464L8.64645 15.3536ZM3.64645 9.64645L8.64645 4.64645L9.35355 5.35355L4.35355 10.3536L3.64645 9.64645ZM4 9.5L14 9.5L14 10.5L4 10.5L4 9.5ZM20.5 16L20.5 18L19.5 18L19.5 16L20.5 16ZM14 9.5C17.5898 9.5 20.5 12.4101 20.5 16L19.5 16C19.5 12.9624 17.0376 10.5 14 10.5L14 9.5Z"/></svg>`;
     btnVolver.addEventListener("click", () => {
-      ejercicios.forEach((e) => {
+      // Restaurar todas las tarjetas, incluidas las resueltas
+      ejerciciosAll.forEach((e) => {
         e.style.display = "block";
         e.style.width = "";
         e.style.height = "";
         e.style.fontSize = "";
         e.classList.remove("centrado-grande");
+        e.classList.remove("signo-derecha");
       });
       inputRespuesta.value = "";
 
@@ -141,7 +145,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     ejercicios.forEach((ejercicio) => {
       ejercicio.addEventListener("click", function () {
-        ejercicios.forEach((e) => {
+        // ocultar todas las tarjetas excepto la seleccionada (incluye resueltas)
+        ejerciciosAll.forEach((e) => {
           if (e !== ejercicio) e.style.display = "none";
         });
         ejercicio.style.width = "40vw";

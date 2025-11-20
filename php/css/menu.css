@@ -1,20 +1,36 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #d3d3d3; /* Fondo gris */
-  margin: 0;
-  padding: 20px;
-  min-height: 100vh;
+/* Theme variables (copied from login.css for consistency) */
+:root {
+  --color-primary: #10b981;
+  --color-primary-dark: #059669;
+  --color-primary-light: #a7f3d0;
+  --color-gray-900: #111827;
+  --color-gray-700: #374151;
+  --color-gray-500: #6b7280;
+  --color-gray-300: #d1d5db;
+  --color-gray-200: #e5e7eb;
+  --color-white: #ffffff;
+  --card-radius: 1rem;
 }
 
+/* Page background & typography */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f0fdf4, #ffffff);
+  font-family: 'Arial Rounded MT Bold', system-ui, sans-serif;
+  color: var(--color-gray-900);
+}
+
+/* Header */
 header {
-  background: #ffffff;
-  padding: 15px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  background: var(--color-white);
+  padding: 18px 24px;
+  box-shadow: 0 2px 6px rgba(16,24,40,0.06);
+  position: relative;
 }
 
 .header-content {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -22,86 +38,101 @@ header {
 }
 
 .bienvenido-header {
-  font-size: 1.2em;
-  color: #333;
-  text-align: left;
+  font-size: 1.125rem;
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+.welcome-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-gray-900);
+}
+
+.welcome-subtitle {
+  font-size: 0.95rem;
+  color: var(--color-gray-600, var(--color-gray-700));
+  margin-top: 4px;
 }
 
 .logout-btn {
-  background: #e74c3c;
+  background: #ef4444; /* red-500 */
   color: #fff;
   border: none;
-  padding: 8px 18px;
-  border-radius: 5px;
-  font-size: 1em;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem;
   cursor: pointer;
 }
 
+/* Main container (card) */
 .container {
-  max-width: 600px;
-  margin: 60px auto;
-  background: #ffffff; /* Cuadro blanco */
-  border-radius: 10px;
-  box-shadow: 0 0 16px #ccc;
-  padding: 40px 40px 50px 40px;
+  max-width: 900px;
+  margin: 48px auto;
+  background-color: var(--color-white);
+  border-radius: var(--card-radius);
+  box-shadow: 0 8px 28px rgba(16,24,40,0.06);
+  padding: 32px;
   text-align: center;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .bienvenido {
-  font-size: 1.3em;
+  font-size: 1.375rem;
   margin-bottom: 18px;
-}
-
-.logout-btn {
-  position: absolute;
-  right: 30px;
-  top: 30px;
-  background: #e74c3c;
-  color: #fff;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 5px;
-  font-size: 1em;
-  cursor: pointer;
+  color: var(--color-gray-900);
 }
 
 .mensaje {
-  margin: 38px 0 32px 0;
-  font-size: 1.1em;
-  color: #333;
+  margin: 28px 0 24px 0;
+  font-size: 1.05rem;
+  color: var(--color-gray-700);
 }
 
 .opciones {
   display: flex;
   flex-direction: row;
-  gap: 24px;
+  gap: 20px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .opcion-btn {
-  font-size: 1.2em;
-  padding: 22px 40px;
-  border-radius: 8px;
+  font-size: 1.125rem;
+  padding: 20px 36px;
+  min-height: 64px;
+  border-radius: 14px;
   border: none;
-  background: #3498db;
-  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), #34d399);
+  color: var(--color-white);
   cursor: pointer;
-  transition: background 0.2s;
-  font-weight: bold;
-  flex: 1;
-  max-width: 200px;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 200px;
+  max-width: 320px;
+  box-shadow: 0 8px 20px rgba(16,24,40,0.08);
 }
 
 .opcion-btn:hover {
-  background: #2980b9;
+  background: linear-gradient(135deg, var(--color-primary-dark), #2bbf88);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 30px rgba(16,24,40,0.12);
 }
 
-@media (max-width: 500px) {
-  .container {
-    padding: 16px 4vw;
-  }
-  .logout-btn {
-    right: 10px;
-    top: 10px;
-  }
+/* Logout button floating on larger screens */
+.logout-btn.floating {
+  position: absolute;
+  right: 24px; /* alineado al padding derecho del header */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 640px) {
+  .container { padding: 16px; margin: 20px; }
+  .logout-btn.floating { position: static; display: inline-block; margin-left: 8px; }
+  .opcion-btn { padding: 14px 18px; font-size: 1rem; min-height: 56px; }
 }

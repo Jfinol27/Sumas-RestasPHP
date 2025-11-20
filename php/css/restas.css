@@ -5,7 +5,7 @@ body {
   height: 100vh;
   margin: 0;
   background-color: #fafafa;
-  font-family: monospace;
+  font-family: 'Arial Rounded MT Bold', system-ui, sans-serif;
 }
 
 .contenedor {
@@ -125,6 +125,7 @@ body {
 .btn-volver-menu:hover {
   background-color: #0056b3;
 }
+
 body {
   display: flex;
   justify-content: center;
@@ -132,7 +133,7 @@ body {
   height: 100vh;
   margin: 0;
   background-color: #fafafa;
-  font-family: monospace;
+  font-family: 'Arial Rounded MT Bold', system-ui, sans-serif;
 }
 
 .contenedor {

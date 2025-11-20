@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial Rounded MT Bold', system-ui, sans-serif;
   background: #d3d3d3; /* Fondo gris */
   margin: 0;
   padding: 20px;
@@ -51,4 +51,117 @@ body {
 .registro p {
   text-align: center;
   margin-top: 18px;
+}
+
+/* Copiado desde login.css: estilos del tema principal para mantener consistencia */
+:root {
+  --color-primary: #10b981;
+  --color-primary-dark: #059669;
+  --color-primary-light: #a7f3d0;
+  --color-gray-900: #111827;
+  --color-gray-700: #374151;
+  --color-gray-500: #6b7280;
+  --color-gray-300: #d1d5db;
+  --color-gray-200: #e5e7eb;
+  --color-white: #ffffff;
+  --card-radius: 1rem;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #f0fdf4, #ffffff);
+  font-family: 'Arial Rounded MT Bold', system-ui, sans-serif;
+  color: var(--color-gray-900);
+}
+
+.registro {
+  width: 100%;
+  max-width: 28rem;
+  background-color: var(--color-white);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  box-shadow: 0 8px 28px rgba(16,24,40,0.06);
+  border: 1px solid var(--color-gray-200);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.registro input[type="text"],
+.registro input[type="password"],
+.registro input[type="email"],
+.registro input[type="number"] {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--color-gray-300);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--color-gray-900);
+  margin: 0.5rem 0 0.9rem 0;
+  box-sizing: border-box;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.registro input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(16,185,129,0.08);
+}
+
+.registro button {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .12s ease, transform .06s ease;
+}
+
+.registro button:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.error {
+  color: #b91c1c;
+  background: rgba(185,28,28,0.06);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .registro {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  /* En móviles, apilar edad y sección */
+  .registro input[name="edad"],
+  .registro input[name="seccion"] {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* En pantallas más anchas, poner Edad y Sección en la misma fila */
+@media (min-width: 641px) {
+  .registro input[name="edad"],
+  .registro input[name="seccion"] {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
+  .registro input[name="edad"] {
+    width: 28%;
+  }
+  .registro input[name="seccion"] {
+    width: 70%;
+    margin-right: 0; /* último elemento no necesita margen extra */
+  }
 }
