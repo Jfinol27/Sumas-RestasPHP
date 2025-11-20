@@ -120,7 +120,7 @@ for ($p = 1; $p <= $paginas; $p++) {
 <head>
 		<script src="js/restas.js"></script>
 		<meta charset="UTF-8">
-		<title>Restas Paginadas</title>
+		<title>Restas - Aprende y Diviértete</title>
 		<link rel="stylesheet" href="css/restas.css">
 </head>
 

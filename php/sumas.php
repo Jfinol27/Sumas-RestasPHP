@@ -155,7 +155,7 @@ for ($p = 1; $p <= $paginas; $p++) {
 <head>
     <script src="js/sumas.js"></script>
     <meta charset="UTF-8">
-    <title>Sumas Paginadas</title>
+    <title>Sumas - Aprende y Diviértete</title>
     <link rel="stylesheet" href="css/sumas.css">
 </head>
 
