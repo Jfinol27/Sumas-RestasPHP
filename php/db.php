@@ -1,9 +1,9 @@
 <?php
 // Configuración de la conexión a la base de datos para el proyecto
 $host = 'localhost';
-$db   = 'proyectopw'; // Cambia si tu base de datos tiene otro nombre
-$user = 'root';
-$pass = '';
+$db   = 'grup_proyectopw'; // Cambia si tu base de datos tiene otro nombre
+$user = 'grup_proyectopw';
+$pass = 'ale3112';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
